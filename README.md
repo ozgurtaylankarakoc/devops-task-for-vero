@@ -18,15 +18,15 @@ Create two docker containers, one holding a MSSQL database, another one holding 
 Write a Dockerfile for the following tasks
 
 - Perform MSSQL Server Installation
-- Database should be called `db_vero_digital` with user `sa` and his password set to `Un!q@to2023`
+- Set password for 'SA' should to `Un!q@to2023`
 - Run MSSQL Service
 
 ## Docker Container 2: API
 
 - Install Webserver of your choice
-- Install PHP 7.4
+- Install PHP 7.1+
 - Install proper driver to connect to MSSQL Server (s. Container 1 above)
-- Add the script `test.php` to the web-root folder
+- Add the script `QuickDbTest.php` to the web-root folder
 
 ## Launcher
 
