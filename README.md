@@ -18,7 +18,7 @@ Create two docker containers, one holding a MSSQL database, another one holding 
 Write a Dockerfile for the following tasks
 
 - Perform MSSQL Server Installation
-- Set password for 'SA' should to `Un!q@to2023`
+- Set password for `SA` to `Un!q@to2023`
 - Run MSSQL Service
 
 ## Docker Container 2: API
