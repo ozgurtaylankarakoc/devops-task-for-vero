@@ -1,0 +1,30 @@
+FROM php:8.0-apache
+# Remove existing apt lists to avoid "Hash Sum mismatch" errors
+RUN rm -rf /var/lib/apt/lists/*
+# Install necessary dependencies
+RUN apt-get update && apt-get install -y apt-utils gnupg2 lsb-release
+# Import Microsoft GPG key
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# Update package list and install MS SQL Server drivers
+RUN apt-get update && ACCEPT_EULA=Y apt-get install -y msodbcsql18 mssql-tools18
+# Install pdo_sqlsrv and ODBC driver dependencies
+RUN apt-get install -y unixodbc unixodbc-dev libcurl4-openssl-dev freetds-dev
+# Install pdo_sqlsrv extension
+RUN pecl install pdo_sqlsrv \
+    && echo "extension=pdo_sqlsrv.so" >> /usr/local/etc/php/php.ini
+# Download and install Microsoft ODBC Driver for SQL Server
+# RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+#     && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+#     && apt-get update \
+#     && ACCEPT_EULA=Y apt-get install -y msodbcsql17
+# Clean up unnecessary packages and files
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Set working directory
+WORKDIR /var/www/html
+# Copy PHP script to the web-root folder
+COPY QuickDbTest.php /var/www/html/
+# Expose the Apache port
+EXPOSE 80
+# Start Apache service
+CMD ["apache2-foreground"]

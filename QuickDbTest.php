@@ -3,9 +3,9 @@
 
 final class QuickDbTest
 {
-    private const host = 'localhost';
+    private const host = 'database';
     private const db = 'db_vero_digital';
-    private const user = 'sa';
+    private const user = 'SA';
     private const pass = 'Un!q@to2023';
 
     private function connectToDatabase() {

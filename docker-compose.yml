@@ -1,0 +1,32 @@
+version: "3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    image: ozgurtaylankarakoc/api-vero:1.0
+    restart: always
+    ports:
+      - "80:80"
+    # network_mode: "host"
+    depends_on:
+      - database
+    networks:
+      - m6a
+  database:
+    container_name: db 
+    # image: ozgurtaylankarakoc/db-vero:1.0
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: Un!q@to2023
+    restart: always
+    ports:
+      - "1433:1433"
+    # network_mode: "host"
+    networks:
+      - m6a
+networks:
+  m6a:
+    driver: bridge
+
