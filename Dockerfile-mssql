@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/mssql/server:2022-latest
 ENV ACCEPT_EULA Y
-ENV ACCEPT_EULA Y Un!q@to2023
+ENV MSSQL_SA_PASSWORD Un!q@to2023
 EXPOSE 1433
 CMD ["/opt/mssql/bin/sqlservr"]
