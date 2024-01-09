@@ -3,14 +3,15 @@
 
 final class QuickDbTest
 {
-    private const host = 'database';
+    private const host = 'localhost';
     private const db = 'db_vero_digital';
-    private const user = 'SA';
+    private const user = 'sa';
     private const pass = 'Un!q@to2023';
+    
 
     private function connectToDatabase() {
         try {
-            $dsn = "sqlsrv:server=".self::host.";Database=".self::db;
+            $dsn = "sqlsrv:server=".self::host.";Database=".self::db.";TrustServerCertificate=true";
             $connection = new PDO($dsn, self::user, self::pass);
             $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
