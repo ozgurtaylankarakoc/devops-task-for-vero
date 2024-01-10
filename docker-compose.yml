@@ -1,10 +1,8 @@
 version: "3"
 services:
   api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile-ozgur
-    image: ozgurtaylankarakoc/api-vero:1.1
+    container_name: api
+    image: $docker_user_name/$api_image_name:$api_image_tag
     restart: always
     ports:
       - "80:80"
@@ -13,11 +11,8 @@ services:
       - database
 
   database:
-    build:
-      context: ./database
-      dockerfile: Dockerfile-mssql
     container_name: database 
-    image: ozgurtaylankarakoc/db-vero:1.0
+    image: $docker_user_name/$mssql_image_name:$mssql_image_tag
     restart: always
     ports:
       - "1433:1433"
