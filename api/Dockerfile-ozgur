@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y unixodbc-dev
 RUN pecl install pdo_sqlsrv sqlsrv
 RUN docker-php-ext-enable pdo_sqlsrv sqlsrv
 
-COPY QuickDbTest.php /var/www/html/
+COPY QuickDbTest.php /var/www/html/index.php
 
 CMD ["apache2-foreground"]
