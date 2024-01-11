@@ -1,33 +1,24 @@
-Hello dear DevOps prospect!
+Hello Dear Vero Developer Team!
 
-This repository is supposed to act as a playground for your submission.
+The way of the solution was slightly challanging. while on the way i bumped several errors, i would like to mention about sequentially.
 
-Before getting started, please make sure use this repository as a **template** and create your own **public** repository, on which you will commit and push your code regularly. 
-Once you are ready, please mail us back the link to your repository. 
+# Errors
 
-Below, you will find the **Task** definition.
+## 1. SQLSTATE[08001]: [Microsoft][ODBC Driver 18 for SQL Server]SSL Provider: [error:0A000086:SSL routines::certificate verify failed:self-signed certificate] 
+- when this error occurred, i researched why it could be ,then found the reason is QuickDbTest.php file needs "trust_server_sertificate = true" state on connection process via odbc driver on "dsn" command line.
 
-Happy Hacking :computer:
+## before 
+QuickDbTest.php
+```bash
+$dsn = "sqlsrv:server=".self::host.";Database=".self::db;
+```
+## after
+```bash
+$dsn = "sqlsrv:server=".self::host.";Database=".self::db.";TrustServerCertificate=true";
+```
+source: https://stackoverflow.com/questions/71688125/odbc-driver-18-for-sql-serverssl-provider-error1416f086
 
-# Task
+## 2. SQLSTATE[HYT00]: [Microsoft][ODBC Driver 18 for SQL Server]Login timeout expired.
+- This issue occurrs when you re not launching Mssql and API app on different IP's so app ve to be on the same host with MsSQL therefore i changed containers network type bridge to HOST as visible on docker-compose.yml
 
-Create two docker containers, one holding a MSSQL database, another one holding a Web-Server offering a pre-defined PHP script. Finally write a Launcher, which starts both containers, so the Web-Server can be called
 
-## Docker Container 1: MSSQL-Server
-
-Write a Dockerfile for the following tasks
-
-- Perform MSSQL Server Installation
-- Set password for `SA` to `Un!q@to2023`
-- Run MSSQL Service
-
-## Docker Container 2: API
-
-- Install Webserver of your choice
-- Install PHP 7.1+
-- Install proper driver to connect to MSSQL Server (s. Container 1 above)
-- Add the script `QuickDbTest.php` to the web-root folder
-
-## Launcher
-
-Write a launcher, which builds and starts both containers (can be shell scripting or docker-compose)
