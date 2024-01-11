@@ -1,6 +1,6 @@
 # Hello Dear Vero Developer Team!
 
-## Running the assessment
+## Running the assignment
 
 ### Application has done as how developer team intended. After pull process, enter devops-task-for-vero folder and run shell script as below.
 
