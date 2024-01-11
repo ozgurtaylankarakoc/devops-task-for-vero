@@ -22,5 +22,7 @@ export api_image_tag=$(openssl rand -hex 4)
 docker build -t $docker_user_name/$api_image_name:$api_image_tag -f Dockerfile-api .
 cd ..
 
-# docker compose up -d / launching app
+# docker compose up -d / launching app & app response
 docker-compose up -d
+sleep 45
+docker exec -t api curl http://localhost 
